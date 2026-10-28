@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #11131a;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.subtitle {
+    color: #999eae;
+    font-size: 1rem;
+    margin-bottom: 35px;
+}
+
+.timer-box {
+    background-color: #1b1e29;
+    padding: 30px 20px;
+    border-radius: 18px;
+    border: 1px solid #303445;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+#clock {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #64b5ff;
+    margin: 20px 0 10px;
+}
+
+#status {
+    font-size: 0.95rem;
+    color: #a6adbf;
+    margin-bottom: 25px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #303445;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background-color: #64b5ff;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.time-selectors {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.time-option {
+    display: flex;
+    flex-direction: column;
+    width: 33.33%;
+}
+
+label {
+    font-size: 0.85rem;
+    color: #a6adbf;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 12px 5px;
+    background-color: #272b39;
+    color: white;
+    border: 1px solid #41475b;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: 1px solid #64b5ff;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 13px 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#start {
+    background-color: #64b5ff;
+    color: #11131a;
+    font-weight: bold;
+}
+
+#pause {
+    background-color: #353b4d;
+    color: white;
+}
+
+#reset {
+    background-color: #353b4d;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.footer {
+    color: #777e91;
+    font-size: 0.85rem;
+    margin-top: 25px;
+}
+
+@media (max-width: 400px) {
+    .container {
+        margin: 25px auto;
+    }
+
+    .timer-box {
+        padding: 25px 15px;
+    }
+
+    #clock {
+        letter-spacing: 1px;
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+}
+

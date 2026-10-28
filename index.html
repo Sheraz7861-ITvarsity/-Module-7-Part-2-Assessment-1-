@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Focus Timer</h1>
+        <p class="subtitle">Set your time and get started</p>
+
+        <div class="timer-box">
+            <div id="clock">00:00:00</div>
+            <p id="status">Ready when you are</p>
+            <div class="progress-container">
+                <div id="progressBar"></div>
+            </div>
+            <div class="time-selectors">
+                <div class="time-option">
+                    <label for="hours">Hours</label>
+                    <select id="hours">
+                        <option value="0">00</option>
+
+                        <option value="1">01</option>
+
+                        <option value="2">02</option>
+
+                        <option value="3">03</option>
+
+                        <option value="4">04</option>
+
+                        <option value="5">05</option>
+
+                        <option value="6">06</option>
+
+                        <option value="7">07</option>
+
+                        <option value="8">08</option>
+
+                        <option value="9">09</option>
+
+                        <option value="10">10</option>
+
+                        <option value="11">11</option>
+
+                        <option value="12">12</option>
+
+                        <option value="13">13</option>
+
+                        <option value="14">14</option>
+
+                        <option value="15">15</option>
+
+                        <option value="16">16</option>
+
+                        <option value="17">17</option>
+
+                        <option value="18">18</option>
+
+                        <option value="19">19</option>
+
+                        <option value="20">20</option>
+
+                        <option value="21">21</option>
+
+                        <option value="22">22</option>
+
+                        <option value="23">23</option>
+                    </select>
+                </div>
+                <div class="time-option">
+                    <label for="minutes">Minutes</label>
+                    <select id="minutes"></select>
+                </div>
+                <div class="time-option">
+                    <label for="seconds">Seconds</label>
+                    <select id="seconds"></select>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="start">Start Timer</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+        <p class="footer">Make every second count.</p>
+    </div>
+    
+    <script>
+
+        var timer;
+        var timeLeft = 0;
+        var totalTime = 0;
+        var running = false;
+        var paused = false;
+
+        var clock = document.getElementById("clock");
+        var statusText = document.getElementById("status");
+        var progressBar = document.getElementById("progressBar");
+
+        for (var i = 0; i < 60; i++) {
+            var minuteOption = document.createElement("option");
+            minuteOption.value = i;
+            minuteOption.textContent = i < 10 ? "0" + i : i;
+            document.getElementById("minutes").appendChild(minuteOption);
+
+            var secondOption = document.createElement("option");
+            secondOption.value = i;
+            secondOption.textContent = i < 10 ? "0" + i : i;
+            document.getElementById("seconds").appendChild(secondOption);
+        }
+
+
+
+        function showTime(seconds) {
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            var secs = seconds % 60;
+
+            return String(hours).padStart(2, "0") + ":" +
+                   String(minutes).padStart(2, "0") + ":" +
+                   String(secs).padStart(2, "0");
+        }
+
+
+
+        function startTimer() {
+            if (running) {
+                return;
+            }
+
+
+
+            if (!paused) {
+                var hours = Number(document.getElementById("hours").value);
+                var minutes = Number(document.getElementById("minutes").value);
+                var seconds = Number(document.getElementById("seconds").value);
+
+                timeLeft = hours * 3600 + minutes * 60 + seconds;
+                totalTime = timeLeft;
+
+                if (timeLeft <= 0) {
+                    statusText.textContent = "Please choose a time first";
+                    return;
+                }
+            }
+
+            running = true;
+            paused = false;
+
+            statusText.textContent = "Timer is running";
+            document.getElementById("start").textContent = "Running";
+
+            timer = setInterval(function () {
+                timeLeft--;
+
+                clock.textContent = showTime(timeLeft);
+
+                var progress = ((totalTime - timeLeft) / totalTime) * 100;
+                progressBar.style.width = progress + "%";
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    running = false;
+                    paused = false;
+
+                    clock.textContent = "00:00:00";
+                    statusText.textContent = "Time is up!";
+                    document.getElementById("start").textContent = "Start Timer";
+                    progressBar.style.width = "100%";
+                }
+
+            }, 1000);
+
+            clock.textContent = showTime(timeLeft);
+        }
+
+        function pauseTimer() {
+            if (running) {
+                clearInterval(timer);
+                running = false;
+                paused = true;
+
+                statusText.textContent = "Timer paused";
+                document.getElementById("start").textContent = "Resume";
+            } else if (paused) {
+                startTimer();
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+
+            running = false;
+            paused = false;
+            timeLeft = 0;
+            totalTime = 0;
+
+            clock.textContent = "00:00:00";
+            statusText.textContent = "Ready when you are";
+            progressBar.style.width = "0%";
+
+            document.getElementById("start").textContent = "Start Timer";
+        }
+
+        document.getElementById("start").addEventListener("click", startTimer);
+        document.getElementById("pause").addEventListener("click", pauseTimer);
+        document.getElementById("reset").addEventListener("click", resetTimer);
+    </script>
+</body>
+</html>
